@@ -3,7 +3,7 @@
 BUS_DATOS_7SEG EQU P0
 BUS_CONTROL_7SEG EQU P1
 ;Dec. de horas->P1.0  Unid. de horas->P1.1  Dec. de minutos->P1.2  Unid. de minutos->P1.3
-LED EQU P1.4
+LED EQU P3.7
 ;//Botones
 ALARM_SET EQU P2.0
 UP EQU P2.1
@@ -50,7 +50,7 @@ FLAG_WAITING_POLL EQU 20H.5
 CONTADOR_500ms EQU 50H
 CONTADOR_1min EQU 51H
 CONTADOR_5sec EQU 52H
-CONTADOR_AUX_50ms EQU 54H
+CONTADOR_AUX_250ms EQU 54H
 CONTADOR_7SEG EQU R7
 CONTADOR_ITERACIONES EQU R6
 
@@ -82,7 +82,7 @@ MOV CONTADOR_7SEG,#0;Indica la cantidad de lamparas actualizadas
 MOV CONTADOR_500ms,#100;100 veces 5ms es 500ms
 MOV CONTADOR_1min,#120;120 veces 500ms es 1min
 MOV CONTADOR_5SEC,#10;10 veces 500ms es 5sec
-MOV CONTADOR_AUX_50ms,#5;5 veces 10ms es 50ms
+MOV CONTADOR_AUX_250ms,#25;25 veces 10ms es 250ms
 ;//Inicializo el led como apagado
 CLR LED
 ;//Iniciando los valores de la hora en 0
@@ -368,9 +368,9 @@ RUTINA_TIMER1:
 	;//Redisparo el timer 1
 	SETB TR1
 	;//Si pasan 500ms nueva encuesta
-	DJNZ CONTADOR_AUX_50ms,SALGO2
+	DJNZ CONTADOR_AUX_250ms,SALGO2
 	;//Recargo el contador
-	MOV CONTADOR_AUX_50ms,#5
+	MOV CONTADOR_AUX_250ms,#25
 	;//Aviso al prog. principal que debe encuestar again
 	SETB FLAG_NEW_POLL
 	SALGO2:
@@ -462,6 +462,7 @@ DB Codigo_0,Codigo_1,Codigo_2,Codigo_3,Codigo_4,Codigo_5,Codigo_6,Codigo_7,Codig
 
 
 END
+
 
 
 
