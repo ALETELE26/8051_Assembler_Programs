@@ -281,7 +281,7 @@ WHILE_TRUE:
 ;____________________Rutinas de interrupcion______________________________________________________________
 ;/////Rutina EXTI0/////////
 RUTINA_EXT0:
-	;//Le aviso al programa principal que se apreto el contador PRESS
+	;//Le aviso al programa principal que se apreto el boton mode
 	SETB FLAG_MODE_PRESS
 	;//Inhabilito la EXTI 0
 	CLR EX0
@@ -367,7 +367,7 @@ RUTINA_TIMER1:
 	JNB FLAG_WAITING_POLL,SALGO2
 	;//Redisparo el timer 1
 	SETB TR1
-	;//Si pasan 500ms nueva encuesta
+	;//Si pasan 25\ms nueva encuesta
 	DJNZ CONTADOR_AUX_250ms,SALGO2
 	;//Recargo el contador
 	MOV CONTADOR_AUX_250ms,#25
